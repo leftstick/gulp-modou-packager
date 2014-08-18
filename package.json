@@ -1,0 +1,37 @@
+{
+  "name": "gulp-modou-packager",
+  "version": "1.0.0",
+  "description": "a gulp plugin can package modou plugin source files into .mpk",
+  "main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leftstick/gulp-modou-packager.git"
+  },
+  "files": [
+    "index.js",
+    "libs"
+  ],
+  "keywords": [
+    "gulpplugin"
+  ],
+  "scripts": {
+    "test": "mocha --reporter nyan"
+  },
+  "author": "Howard.Zuo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leftstick/gulp-modou-packager/issues"
+  },
+  "homepage": "https://github.com/leftstick/gulp-modou-packager",
+  "dependencies": {
+    "archiver": "^0.10.1",
+    "gulp-util": "^3.0.0",
+    "through2": "^0.6.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-clean": "^0.3.1",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
+  }
+}
