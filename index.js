@@ -7,16 +7,27 @@ var endswith = function(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };
 
+var isInt = function(x) {
+    var y = parseInt(x, 10);
+    return !isNaN(y) && x == y && x.toString() == y.toString();
+};
 
-var gulpModouPackager = function(packageName) {
+var gulpModouPackager = function(opts) {
     'use strict';
+
+    if (!opts) {
+        throw new PluginError(PLUGIN_NAME, 'opts can\'t be undefined');
+    }
+    if (!opts.packageName) {
+        throw new PluginError(PLUGIN_NAME, 'opts.packageName can\'t be undefined');
+    }
+    if (!opts.compressLevel || !isInt(opts.compressLevel)) {
+        opts.compressLevel = 1;
+    }
 
     var gutil = require('gulp-util');
     var PluginError = gutil.PluginError;
 
-    if (!packageName) {
-        throw new PluginError(PLUGIN_NAME, 'packageName can\'t be undefined');
-    }
 
     var path = require('path');
     var through = require('through2');
@@ -25,7 +36,7 @@ var gulpModouPackager = function(packageName) {
     var archive = archiver('tar', {
         gzip: true,
         gzipOptions: {
-            level: 1
+            level: opts.compressLevel
         }
     });
     var firstFile;
@@ -55,7 +66,7 @@ var gulpModouPackager = function(packageName) {
 
             var path = require('path');
 
-            var fullname = endswith(packageName, '.mpk') ? packageName : packageName + '.mpk';
+            var fullname = endswith(opts.packageName, '.mpk') ? opts.packageName : opts.packageName + '.mpk';
 
             var mpk = new gutil.File({
                 cwd: firstFile.cwd,

@@ -21,16 +21,22 @@ Let's take [welcome-page](https://github.com/modouwifi/welcome-page) as example:
 var packager = require('gulp-modou-packager');
 
 gulp.src(['init', 'manifest.json', 'welcome.html'])
-    .pipe(packager('welcome.mpk'))
+    .pipe(packager({
+                packageName: 'welcome',
+                compressLevel: 5
+            }))
     .pipe(gulp.dest('test/'));
 ```
 
 An `.mpk` file would be generated under `test/` folder.
 
+## Options ##
 
-`packager` only allows one string parameter which define the `packageName`.
 
-And if `packageName` doesn't contain a suffix `.mpk`, `gulp-modou-packager` append it for you. 
+| key        | Type           | optional  | Description |
+| :------------- |:-------------| :-----:| :-----|
+| packageName | string | No | the file name will be generated. the suffix `.mpk` can be automaticly appended if you missed |
+| compressLevel | int | Yes | the compression level to be passed into `zlib` |
 
 
 ## LICENSE ##

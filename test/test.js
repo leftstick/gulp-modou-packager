@@ -19,7 +19,9 @@ describe('basic test', function() {
 
     it('test packageName without suffix', function(done) {
         var stream = gulp.src(['test/testfiles/init', 'test/testfiles/manifest.json', 'test/testfiles/welcome.html'])
-            .pipe(packager('welcome'))
+            .pipe(packager({
+                packageName: 'welcome'
+            }))
             .pipe(gulp.dest('test/'));
 
         stream.on('end', function() {
@@ -32,7 +34,9 @@ describe('basic test', function() {
 
     it('test packageName with suffix', function(done) {
         var stream = gulp.src(['test/testfiles/init', 'test/testfiles/manifest.json', 'test/testfiles/welcome.html'])
-            .pipe(packager('welcome.mpk'))
+            .pipe(packager({
+                packageName: 'welcome'
+            }))
             .pipe(gulp.dest('test/'));
 
         stream.on('end', function() {
@@ -44,7 +48,24 @@ describe('basic test', function() {
 
     it('use wildcard', function(done) {
         var stream = gulp.src('test/testfiles/*')
-            .pipe(packager('welcome.mpk'))
+            .pipe(packager({
+                packageName: 'welcome'
+            }))
+            .pipe(gulp.dest('test/'));
+
+        stream.on('end', function() {
+            var fs = require('fs');
+            should(fs.existsSync('test/welcome.mpk')).eql(true, 'welcome.mpk isn\'t generated correctly');
+            done();
+        });
+    });
+
+    it('set compressLevel', function(done) {
+        var stream = gulp.src('test/testfiles/*')
+            .pipe(packager({
+                packageName: 'welcome',
+                compressLevel: 5
+            }))
             .pipe(gulp.dest('test/'));
 
         stream.on('end', function() {
