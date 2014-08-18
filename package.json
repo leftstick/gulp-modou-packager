@@ -8,8 +8,7 @@
     "url": "https://github.com/leftstick/gulp-modou-packager.git"
   },
   "files": [
-    "index.js",
-    "libs"
+    "index.js"
   ],
   "keywords": [
     "gulpplugin"
